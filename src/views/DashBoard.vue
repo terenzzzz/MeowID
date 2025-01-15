@@ -2,7 +2,7 @@
     <div id="dashboard" class="container mt-3">
         <div class="row h-100" data-wow-duration="3s">
             <div class="col-6">
-                <div class="card h-100 p-3 rounded-5">
+                <div class="card h-100 p-3 rounded-5 card-bg">
                     <h1 class="text-center mt-auto fw-bold">爱猫血统鉴定</h1>
                     <p class="text-center text-muted ">请上传您的爱宠照片</p>
 
@@ -27,16 +27,9 @@
 
             </div>
             <div class="col-6 ">
-                <div class="card h-100 p-5 rounded-5 text-center d-flex align-items-center">
+                <div class="card h-100 p-5 rounded-5 text-center d-flex align-items-center card-bg">
                     <h1 class="fw-bold">KITTY CERTIFICATION</h1>
                     <h1>爱猫血统鉴定证书</h1>
-
-                    <div class="row">
-                        <div class="col-6"></div>
-                        <div class="col-6">
-
-                        </div>
-                    </div>
 
                     <div class="row my-5">
                         <div class="col-2">
@@ -92,5 +85,10 @@ const beforeUpload = (file) => {
 #dashboard{
     min-height: 50vw;
 }
+
+.card-bg{
+    background-color: #fef4ea;
+}
+
 
 </style>
