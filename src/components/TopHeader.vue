@@ -30,6 +30,9 @@
       </div>
     </div>
   </nav>
+    <div class="alert alert-warning fs-5" role="alert">
+        上传猫咪的照片，立刻了解它属于哪一品种！我们的先进 AI 技术，能精准识别猫咪的品种并输出每个品种的概率百分比。无论是波斯猫、英短猫还是孟加拉猫，都能一秒搞定！赶快试试，让每只猫咪的故事变得更加独特！
+    </div>
 </template>
 
 <script setup lang="ts">
