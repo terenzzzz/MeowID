@@ -12,7 +12,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 
-
+import 'animate.css';
 
 
 const app = createApp(App)

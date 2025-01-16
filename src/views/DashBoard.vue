@@ -1,8 +1,8 @@
 <template>
-    <div id="dashboard" class="container mt-3">
-        <div class="row h-100" data-wow-duration="3s">
-            <div class="col-6">
-                <div class="card h-100 p-3 rounded-5 card-bg">
+    <div id="dashboard" class="container mt-3 py-5">
+        <div class="row h-100" data-wow-duration="3s" style="min-height: 30vw">
+            <div :class="uploadedImg? 'col-6 animate__animated animate__fadeInLeft' : 'col-12 animate__animated animate__fadeIn'">
+                <div class="card h-100 p-3 rounded-5 card-bg" data-wow-duration="3s">
                     <h1 class="text-center mt-auto fw-bold">爱猫血统鉴定</h1>
                     <p class="text-center text-muted ">请上传您的爱宠照片</p>
 
@@ -26,7 +26,7 @@
                 </div>
 
             </div>
-            <div class="col-6 ">
+            <div class="col-6 animate__animated animate__fadeInRight" v-if="uploadedImg">
                 <div class="card h-100 p-5 rounded-5 text-center d-flex align-items-center card-bg">
                     <h1 class="fw-bold">KITTY CERTIFICATION</h1>
                     <h1>爱猫血统鉴定证书</h1>
@@ -58,6 +58,8 @@ import { ref } from 'vue';
 import PieChart from '@/components/PieChart.vue'
 
 
+const uploadedImg = ref(false)
+
 const uploadImgPreview = ref(new URL('@/assets/logo.png', import.meta.url).href);
 
 const beforeUpload = (file) => {
@@ -77,13 +79,15 @@ const beforeUpload = (file) => {
     // 开始读取文件
     reader.readAsDataURL(file);
 
+    uploadedImg.value = true
+
     // 返回 false，阻止上传（因为我们这里只处理预览）
     return false;
 };
 </script>
 <style scoped lang="css">
 #dashboard{
-    min-height: 50vw;
+    min-height: 30vw;
 }
 
 .card-bg{
