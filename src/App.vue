@@ -1,7 +1,10 @@
-<template class="m-0 p-0 w-100">
-    <TopHeader class="m-0 p-0 w-100"></TopHeader>
-    <RouterView class="w-100 "></RouterView>
-    <BottomFooter class="m-0 p-0 w-100"></BottomFooter>
+<template class="m-0 p-0 w-100 ">
+    <div class="gochi-hand-regular">
+        <TopHeader class="m-0 p-0 w-100 "></TopHeader>
+        <RouterView class="w-100 "></RouterView>
+        <BottomFooter class="m-0 p-0 w-100 "></BottomFooter>
+    </div>
+
 </template>
 
 
@@ -13,6 +16,14 @@ import BottomFooter from '@/components/BottomFooter.vue'
 <style lang="css">
 * {
     box-sizing: border-box;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Gochi+Hand&display=swap');
+
+.gochi-hand-regular {
+    font-family: "Gochi Hand", cursive;
+    font-weight: 600;
+    font-style: normal;
 }
 
 </style>

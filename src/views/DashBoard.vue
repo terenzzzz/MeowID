@@ -7,7 +7,7 @@
                     <p class="text-center text-muted ">请上传您的爱宠照片</p>
 
                     <div class="d-flex flex-column my-auto align-items-center justify-content-center">
-                        <img :src="uploadImgPreview" class="img-fluid rounded-circle border border-2 rounded-circle p-1" style="height: 150px; width: 150px; "/>
+                        <img :src="uploadImgPreview" class="img-fluid rounded-circle border border-2 rounded-circle p-1 object-fit-cover" style="height: 150px; width: 150px; "/>
 
                         <el-upload
                             class="mt-3"
@@ -15,7 +15,7 @@
                             :show-file-list="false"
                             limit="1"
                         >
-                            <el-button slot="trigger" size="small" type="primary">上传文件</el-button>
+                            <el-button slot="trigger" size="large" type="primary" class="fs-4">上传文件</el-button>
                         </el-upload>
                     </div>
 
@@ -31,11 +31,11 @@
                     <h1 class="fw-bold">KITTY CERTIFICATION</h1>
                     <h1>爱猫血统鉴定证书</h1>
 
-                    <div class="row my-5">
-                        <div class="col-2">
-                            <img :src="uploadImgPreview" class="img-fluid border border-2 p-1" />
+                    <div class="row my-5 w-100">
+                        <div class="col-12 col-md-4 col-lg-3 col-xl-2  p-0 d-flex justify-content-start">
+                            <img :src="uploadImgPreview" class="img-fluid border border-2 p-1 w-100 object-fit-cover" />
                         </div>
-                        <div class="col-10 d-flex align-items-center">
+                        <div class="col-12 col-md-8 col-lg-9 col-xl-10 d-flex align-items-center">
                             <h3 class="fw-bold">英国短毛猫</h3>
                         </div>
 
