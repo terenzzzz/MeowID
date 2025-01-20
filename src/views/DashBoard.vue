@@ -36,12 +36,12 @@
                             <img :src="uploadImgPreview" class="img-fluid border border-2 p-1 w-100 object-fit-cover" />
                         </div>
                         <div class="col-12 col-md-8 col-lg-9 col-xl-10 d-flex align-items-center">
-                            <h3 class="fw-bold">{{ pieChartLabels[0] }}</h3>
+                            <h3 class="fw-bold">{{ pieChartZhLabels[0] }}({{pieChartEnLabels[0]}})</h3>
                         </div>
 
                     </div>
 
-                    <PieChart :labels="pieChartLabels" :data="pieChartData"/>
+                    <PieChart :labels="pieChartZhLabels" :data="pieChartData"/>
 
 
                     <p class="mt-5 text-start">{{breedInfo}}</p>
@@ -67,27 +67,31 @@ async function fetchPredict() {
 
         const response = await predictBreed(formData)
 
-        // 提取 labels 和数据
-        const labels = response.data.predictions.map(([label]) => label);
-        const data = response.data.predictions.map(([, value]) => value * 100); // 如果需要百分比的话可以乘以 100
+        // 提取英文和中文标签
+        const en_labels = response.data.predictions.map(([label_en]) => label_en);
+        const zh_labels = response.data.predictions.map(([, label_cn]) => label_cn);
 
-        pieChartLabels.value = labels;
+        // 提取数据并转化为百分比
+        const data = response.data.predictions.map(([, , value]) => value * 100); // 如果需要百分比的话可以乘以 100
+
+        // 更新图表数据
+        pieChartEnLabels.value = en_labels;
+        pieChartZhLabels.value = zh_labels;
         pieChartData.value = data;
 
-        const breedResponse = await getBreedInfo(labels[0])
+        const breedResponse = await getBreedInfo(pieChartEnLabels.value[0])
         if (breedResponse){
             breedInfo.value = breedResponse
+        }else {
+            breedInfo.value = ''
         }
-
-        console.log(breedResponse)
-
-
     } catch (error) {
         console.error('Failed to fetch breed:', error)
     }
 }
 
-const pieChartLabels = ref([])
+const pieChartEnLabels = ref([])
+const pieChartZhLabels = ref([])
 const pieChartData = ref([])
 const breedInfo = ref(null)
 

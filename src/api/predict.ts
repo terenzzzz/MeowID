@@ -1,8 +1,6 @@
 // 导入 axios配置
 import request from "@/utils/request"
-import { SparqlEndpointFetcher } from 'fetch-sparql-endpoint';
 
-const myFetcher = new SparqlEndpointFetcher();
 
 
 export const predictBreed = data => request({
