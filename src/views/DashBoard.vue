@@ -36,12 +36,12 @@
                             <img :src="uploadImgPreview" class="img-fluid border border-2 p-1 w-100 object-fit-cover" />
                         </div>
                         <div class="col-12 col-md-8 col-lg-9 col-xl-10 d-flex align-items-center">
-                            <h3 class="fw-bold">英国短毛猫</h3>
+                            <h3 class="fw-bold">{{ pieChartLabels[0] }}</h3>
                         </div>
 
                     </div>
 
-                    <PieChart/>
+                    <PieChart :labels="pieChartLabels" :data="pieChartData"/>
 
 
                     <p class="mt-5 text-start">英国短毛猫是食肉目猫科猫属的哺乳动物。 [4]其显著特征可精炼为“五短”：短毛、短身、短尾、短四肢及短耳。身体中等到大型，胸、肩、臀均宽，肌肉发达；头宽、圆而大，满月脸颊，鼻子短，下巴坚固，和鼻子构成垂线；耳朵大小中等，眼睛大而圆，间距大；尾巴长度为身长的2/3，毛型短而密，质地暗。英国短毛猫是最善于捕猎的猫类之一，被英国人公认为是“捕鼠能手”。</p>
@@ -56,9 +56,37 @@
 <script setup>
 import { ref } from 'vue';
 import PieChart from '@/components/PieChart.vue'
+import {predictBreed} from "@/api/predict.ts";
+
+async function fetchPredict() {
+    try {
+        if (!uploadedImg.value) return
+
+        const formData = new FormData()
+        formData.append('file', uploadedImg.value)
+
+        const response = await predictBreed(formData)
+
+        // 提取 labels 和数据
+        const labels = response.data.predictions.map(([label]) => label);
+        const data = response.data.predictions.map(([, value]) => value * 100); // 如果需要百分比的话可以乘以 100
+
+        pieChartLabels.value = labels;
+        pieChartData.value = data;
+
+        console.log(pieChartLabels.value)
+        console.log(pieChartData.value)
 
 
-const uploadedImg = ref(false)
+    } catch (error) {
+        console.error('Failed to fetch user:', error)
+    }
+}
+
+const pieChartLabels = ref(null)
+const pieChartData = ref(null)
+
+const uploadedImg = ref(null)
 
 const uploadImgPreview = ref(new URL('@/assets/logo.png', import.meta.url).href);
 
@@ -79,7 +107,9 @@ const beforeUpload = (file) => {
     // 开始读取文件
     reader.readAsDataURL(file);
 
-    uploadedImg.value = true
+    uploadedImg.value = file
+
+    fetchPredict()
 
     // 返回 false，阻止上传（因为我们这里只处理预览）
     return false;

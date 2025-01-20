@@ -1,32 +1,48 @@
 <template>
     <div class="p-1">
-        <Pie :data="data" :options="options" />
+        <Pie :key="chartKey" :data="chartData" :options="options" />
     </div>
-
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from 'vue'
+import { defineComponent, reactive, toRefs, watch, ref } from 'vue'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 import { Pie } from 'vue-chartjs'
+import ChartDataLabels from 'chartjs-plugin-datalabels'  // 引入 datalabels 插件
 
 // 注册 chart.js 的元素和插件
-ChartJS.register(ArcElement, Tooltip, Legend)
+ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels)
 
 export default defineComponent({
     name: 'App',
     components: {
         Pie
     },
-    setup() {
-        // 使用 reactive 来定义响应式数据
+    props: {
+        // 父组件传入 labels 和 data
+        labels: {
+            type: Array,
+            required: true
+        },
+        data: {
+            type: Array,
+            required: true
+        }
+    },
+    setup(props) {
+        const chartKey = ref(0) // 用于强制重新渲染图表
+
+        // 使用 reactive 来定义响应式对象
         const chartConfig = reactive({
-            data: {
-                labels: ['异国短毛猫', '英国短毛猫', '短毛猫', '欧洲短毛猫'],
+            chartData: {
+                labels: props.labels,
                 datasets: [
                     {
-                        backgroundColor: ['#41B883', '#E46651', '#00D8FF', '#DD1B16'],
-                        data: [48, 28, 11, 2]
+                        backgroundColor: [
+                            '#6a1b9a', '#f44336', '#ff9800', '#4caf50', '#2196f3',
+                            '#9c27b0', '#03a9f4', '#8bc34a', '#ffeb3b', '#00bcd4'
+                        ],
+                        data: props.data
                     }
                 ]
             },
@@ -39,17 +55,43 @@ export default defineComponent({
                     tooltip: {
                         callbacks: {
                             label: (context: any) => {
-                                return context.raw + '%'
+                                return (context.raw).toFixed(2) + '%'; // 显示百分比
                             }
                         }
+                    },
+                    datalabels: {
+                        color: '#fff', // 设置标签字体颜色
+                        formatter: (value: number) => {
+                            return value.toFixed(2) + '%'; // 显示百分比
+                        },
+                        font: {
+                            weight: 'bold',
+                            size: 14
+                        },
+                        align: 'center',  // 标签水平居中
+                        anchor: 'center'  // 标签垂直居中
                     }
                 }
             }
         })
 
+        // 使用 watch 来监听 props 的变化并更新 chartData
+        watch(
+            () => [props.labels, props.data],
+            ([newLabels, newData]) => {
+                chartConfig.chartData.labels = newLabels
+                chartConfig.chartData.datasets[0].data = newData
+
+                // 更新 chartKey 强制重新渲染
+                chartKey.value += 1
+            },
+            { immediate: true } // 立即执行一次，确保初始化时数据被设置
+        )
+
+        // 返回响应式数据
         return {
-            data: chartConfig.data,
-            options: chartConfig.options
+            ...toRefs(chartConfig),
+            chartKey
         }
     }
 })
