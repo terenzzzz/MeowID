@@ -44,7 +44,7 @@
                     <PieChart :labels="pieChartLabels" :data="pieChartData"/>
 
 
-                    <p class="mt-5 text-start">英国短毛猫是食肉目猫科猫属的哺乳动物。 [4]其显著特征可精炼为“五短”：短毛、短身、短尾、短四肢及短耳。身体中等到大型，胸、肩、臀均宽，肌肉发达；头宽、圆而大，满月脸颊，鼻子短，下巴坚固，和鼻子构成垂线；耳朵大小中等，眼睛大而圆，间距大；尾巴长度为身长的2/3，毛型短而密，质地暗。英国短毛猫是最善于捕猎的猫类之一，被英国人公认为是“捕鼠能手”。</p>
+                    <p class="mt-5 text-start">{{breedInfo}}</p>
                 </div>
             </div>
 
@@ -56,7 +56,7 @@
 <script setup>
 import { ref } from 'vue';
 import PieChart from '@/components/PieChart.vue'
-import {predictBreed} from "@/api/predict.ts";
+import {predictBreed, getBreedInfo} from "@/api/predict.ts";
 
 async function fetchPredict() {
     try {
@@ -74,17 +74,22 @@ async function fetchPredict() {
         pieChartLabels.value = labels;
         pieChartData.value = data;
 
-        console.log(pieChartLabels.value)
-        console.log(pieChartData.value)
+        const breedResponse = await getBreedInfo(labels[0])
+        if (breedResponse){
+            breedInfo.value = breedResponse
+        }
+
+        console.log(breedResponse)
 
 
     } catch (error) {
-        console.error('Failed to fetch user:', error)
+        console.error('Failed to fetch breed:', error)
     }
 }
 
-const pieChartLabels = ref(null)
-const pieChartData = ref(null)
+const pieChartLabels = ref([])
+const pieChartData = ref([])
+const breedInfo = ref(null)
 
 const uploadedImg = ref(null)
 
