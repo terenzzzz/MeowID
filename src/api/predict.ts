@@ -19,7 +19,7 @@ export const getBreedInfo = async (breedName) => {
             SELECT ?abstract  
             WHERE { 
                 <${resource}> dbo:abstract ?abstract .
-                FILTER(LANG(?abstract) = 'zh')  
+                FILTER(LANG(?abstract) = 'zh-cn')  
             }
         `;
 

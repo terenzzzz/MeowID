@@ -49,7 +49,6 @@
             </div>
 
         </div>
-
     </div>
 </template>
 
@@ -60,33 +59,32 @@ import {predictBreed, getBreedInfo} from "@/api/predict.ts";
 
 async function fetchPredict() {
     try {
-        if (!uploadedImg.value) return
+        if (!uploadedImg.value) return;
 
-        const formData = new FormData()
-        formData.append('file', uploadedImg.value)
+        const formData = new FormData();
+        formData.append('file', uploadedImg.value);
 
-        const response = await predictBreed(formData)
+        const response = await predictBreed(formData);
 
-        // 提取英文和中文标签
-        const en_labels = response.data.predictions.map(([label_en]) => label_en);
-        const zh_labels = response.data.predictions.map(([, label_cn]) => label_cn);
-
-        // 提取数据并转化为百分比
-        const data = response.data.predictions.map(([, , value]) => value * 100); // 如果需要百分比的话可以乘以 100
+        // 提取英文和中文标签，以及概率（转为百分比）
+        const en_labels = response.data.prediction.map(item => item.en);
+        const zh_labels = response.data.prediction.map(item => item.zh);
+        const data = response.data.prediction.map(item => item.probability * 100); // 转换为百分比
 
         // 更新图表数据
         pieChartEnLabels.value = en_labels;
         pieChartZhLabels.value = zh_labels;
         pieChartData.value = data;
 
-        const breedResponse = await getBreedInfo(pieChartEnLabels.value[0])
-        if (breedResponse){
-            breedInfo.value = breedResponse
-        }else {
-            breedInfo.value = ''
+        // 获取第一个预测品种的额外信息
+        const breedResponse = await getBreedInfo(pieChartEnLabels.value[0]);
+        if (breedResponse) {
+            breedInfo.value = breedResponse;
+        } else {
+            breedInfo.value = '';
         }
     } catch (error) {
-        console.error('Failed to fetch breed:', error)
+        console.error('Failed to fetch breed:', error);
     }
 }
 
