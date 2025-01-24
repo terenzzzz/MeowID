@@ -14,11 +14,12 @@ import BottomFooter from '@/components/BottomFooter.vue'
 </script>
 
 <style lang="css">
+@import url('https://fonts.googleapis.com/css2?family=Gochi+Hand&display=swap');
+
 * {
     box-sizing: border-box;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Gochi+Hand&display=swap');
 
 .gochi-hand-regular {
     font-family: "Gochi Hand", cursive;

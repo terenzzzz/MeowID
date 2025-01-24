@@ -35,8 +35,9 @@
                         <div class="col-12 col-md-4 col-lg-3 col-xl-2  p-0 d-flex justify-content-start">
                             <img :src="uploadImgPreview" class="img-fluid border border-2 p-1 w-100 object-fit-cover" />
                         </div>
-                        <div class="col-12 col-md-8 col-lg-9 col-xl-10 d-flex align-items-center">
-                            <h3 class="fw-bold">{{ pieChartZhLabels[0] }}({{pieChartEnLabels[0]}})</h3>
+                        <div class="col-12 col-md-8 col-lg-9 col-xl-10 d-flex flex-column justify-content-center align-items-start">
+                            <h3 class="fw-bold">{{ pieChartZhLabels[0] }}</h3>
+                            <h3>{{pieChartEnLabels[0]}}</h3>
                         </div>
 
                     </div>
@@ -83,6 +84,7 @@ async function fetchPredict() {
         } else {
             breedInfo.value = '';
         }
+
     } catch (error) {
         console.error('Failed to fetch breed:', error);
     }
