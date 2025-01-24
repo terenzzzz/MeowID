@@ -1,7 +1,7 @@
 <template class="m-0 p-0 w-100 ">
-    <div class="gochi-hand-regular">
+    <div class="gochi-hand-regular" >
         <TopHeader class="m-0 p-0 w-100 "></TopHeader>
-        <RouterView class="w-100 "></RouterView>
+        <RouterView class="w-100" ></RouterView>
         <BottomFooter class="m-0 p-0 w-100 "></BottomFooter>
     </div>
 
