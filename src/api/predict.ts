@@ -1,16 +1,16 @@
 // 导入 axios配置
-import request from "@/utils/request"
+import request from "../utils/request"
 
 
 
-export const predictBreed = data => request({
+export const predictBreed = (data: any) => request({
     url: '/predictBreed',
     method: 'post',
     data
 });
 
 
-export const getBreedInfo = async (breedName) => {
+export const getBreedInfo = async (breedName: string) => {
     try {
         const resource = 'http://dbpedia.org/resource/' + breedName.replace(/\s+/g, '_');
 
