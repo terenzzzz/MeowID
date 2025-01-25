@@ -32,7 +32,10 @@
   </nav>
     <div class="alert alert-warning fs-5" role="alert">
         上传猫咪的照片，看看它属于哪个品种！我们的AI技术能识别波斯猫、英短猫、布偶等多个品种，并展示每个品种的概率百分比。仅供参考，玩乐性质为主，快来体验与猫咪一起探索的乐趣吧！每一张照片，都是一次轻松的发现！
+
+        <p class="text-end m-0 pe-3">-- 作者: <a href="https://terenzzzz.cn/" class="fw-bold">Terenz</a></p>
     </div>
+
 </template>
 
 <script setup lang="ts">
