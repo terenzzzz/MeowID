@@ -153,12 +153,18 @@
 </style>
 
 <template>
-    <div class="🤚">
-        <div class="👉"></div>
-        <div class="👉"></div>
-        <div class="👉"></div>
-        <div class="👉"></div>
-        <div class="🌴"></div>
-        <div class="👍"></div>
+    <div class="d-flex flex-column text-center">
+        <div class="🤚">
+            <div class="👉"></div>
+            <div class="👉"></div>
+            <div class="👉"></div>
+            <div class="👉"></div>
+            <div class="🌴"></div>
+            <div class="👍"></div>
+        </div>
+        <p class="mt-5">正在推测您的猫咪的品种，请稍等...</p>
     </div>
+
 </template>
+<script setup lang="ts">
+</script>

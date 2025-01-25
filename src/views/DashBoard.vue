@@ -1,7 +1,7 @@
 <template>
     <div id="dashboard" class="container mt-3 py-5">
         <div class="row" data-wow-duration="3s" >
-            <div :class="uploadedImg? 'col-6 animate__animated animate__fadeInLeft' : 'col-12 animate__animated animate__fadeIn'">
+            <div :class="uploadedImg? 'd-none d-xl-block col-xl-6 animate__animated animate__fadeInLeft' : 'col-12 animate__animated animate__fadeIn'">
                 <div class="card h-100 p-5 rounded-5 card-bg" data-wow-duration="3s">
                     <h1 class="text-center mt-auto fw-bold">爱猫血统鉴定</h1>
                     <p class="text-center text-muted ">请上传您的爱宠照片</p>
@@ -29,8 +29,10 @@
                 </div>
 
             </div>
-            <div class="col-6 animate__animated animate__fadeInRight" v-if="uploadedImg">
+            <div class="col-12 col-xl-6 animate__animated animate__fadeInRight" v-if="uploadedImg">
                 <div class="card h-100 p-5 rounded-5 text-center card-bg">
+                    <i class="bi bi-arrow-bar-left fs-3 fw-bold text-start" @click="reset"></i>
+
                     <div class="d-flex justify-content-center align-items-center w-100 h-100" v-if="isLoading">
                         <HandLoader></HandLoader>
                     </div>
@@ -40,10 +42,10 @@
                         <h1>爱猫血统鉴定证书</h1>
 
                         <div class="row my-5 w-100">
-                            <div class="col-12 col-md-4 col-lg-3 col-xl-2  p-0 d-flex justify-content-start">
+                            <div class="col-3 col-md-4 col-lg-3 col-xl-3  p-0 d-flex justify-content-start">
                                 <img :src="uploadImgPreview" class="img-fluid border border-2 p-1 w-100 object-fit-cover" />
                             </div>
-                            <div class="col-12 col-md-8 col-lg-9 col-xl-10 d-flex flex-column justify-content-center align-items-start">
+                            <div class="col-9 col-md-8 col-lg-9 col-xl-9 d-flex flex-column justify-content-center align-items-start">
                                 <h3 class="fw-bold">{{ pieChartZhLabels[0] }}</h3>
                                 <h3>{{pieChartEnLabels[0]}}</h3>
                             </div>
@@ -53,7 +55,7 @@
                         <PieChart :labels="pieChartZhLabels" :data="pieChartData"/>
 
 
-                        <p class="mt-5 text-start">{{breedInfo}}</p>
+                        <p class="mt-5 text-start ">{{breedInfo}}</p>
                     </div>
 
                 </div>
@@ -140,6 +142,12 @@ const beforeUpload = async (file) => {
     // 返回 false，阻止上传（因为我们这里只处理预览）
     return false;
 };
+
+function reset(){
+    uploadedImg.value = null
+    uploadImgPreview.value = new URL('@/assets/logo.png', import.meta.url).href
+}
+
 </script>
 <style scoped lang="css">
 #dashboard{
