@@ -150,9 +150,7 @@ function reset(){
 
 </script>
 <style scoped lang="css">
-#dashboard{
-    min-height: 30vw;
-}
+
 
 .card-bg{
     background-color: #fef4ea;
