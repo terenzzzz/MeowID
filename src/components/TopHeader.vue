@@ -21,7 +21,7 @@
         <ul class="navbar-nav d-flex align-items-center">
 
           <li class="nav-item" >
-            <router-link to="/login" class="item text-decoration-none text-primary">
+            <router-link to="/" class="item text-decoration-none text-primary">
               爱宠血统检测
             </router-link>
           </li>
